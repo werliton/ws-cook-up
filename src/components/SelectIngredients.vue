@@ -4,8 +4,11 @@ import { getCategories } from "@/http";
 export default {
   data() {
     return {
-      categorias: getCategories(),
+      categorias: [] as ICategory[],
     };
+  },
+  async created() {
+    this.categorias = await getCategories();
   },
 };
 </script>
@@ -20,13 +23,15 @@ export default {
     </p>
 
     <div class="categorias">
-      <ul v-for="item in categorias">
+      <ul v-if="categorias.length" v-for="item in categorias">
         <li>{{ item.nome }}</li>
 
         <ul v-for="ingrediente in item.ingredientes">
           <li>{{ ingrediente }}</li>
         </ul>
       </ul>
+
+      <div v-else class="skeleton">Carregando dados...</div>
     </div>
   </section>
 </template>
