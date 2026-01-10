@@ -1,10 +1,13 @@
 <script>
+import SelectIngredients from "./SelectIngredients.vue";
+
 export default {
   data() {
     return {
       ingredientes: ["Alho", "Manteiga", "Orégano"],
     };
   },
+  components: { SelectIngredients },
 };
 </script>
 <template>
@@ -23,10 +26,15 @@ export default {
       </ul>
 
       <p v-else class="paragrafo lista-vazia">
-        <img src="../assets/images/icones/lista-vazia.svg" alt="Ícone de pesquisa">
+        <img
+          src="../assets/images/icones/lista-vazia.svg"
+          alt="Ícone de pesquisa"
+        />
         Sua lista está vazia, selecione ingredientes para iniciar.
-        </p>
+      </p>
     </section>
+
+    <SelectIngredients />
   </main>
 </template>
 
