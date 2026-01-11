@@ -1,5 +1,6 @@
 <script lang="ts">
 import { getCategories } from "@/http";
+import CategoryCard from "./CategoryCard.vue";
 
 export default {
   data() {
@@ -10,6 +11,7 @@ export default {
   async created() {
     this.categorias = await getCategories();
   },
+  components: { CategoryCard },
 };
 </script>
 
@@ -22,17 +24,15 @@ export default {
       sugerir receitas que você pode fazer com eles.
     </p>
 
-    <div class="categorias">
-      <ul v-if="categorias.length" v-for="item in categorias">
-        <li>{{ item.nome }}</li>
-
-        <ul v-for="ingrediente in item.ingredientes">
-          <li>{{ ingrediente }}</li>
-        </ul>
-      </ul>
-
-      <div v-else class="skeleton">Carregando dados...</div>
-    </div>
+    <ul class="categorias">
+      <li
+        v-if="categorias.length"
+        v-for="categoria in categorias"
+        :key="categoria.nome"
+      >
+        <CategoryCard :categoria="categoria" />
+      </li>
+    </ul>
   </section>
 </template>
 
