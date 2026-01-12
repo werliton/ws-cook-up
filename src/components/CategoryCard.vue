@@ -14,7 +14,7 @@ export default {
     Tag,
     SelectedIngredient,
   },
-  emits: ["selecionar-ingrediente"],
+  emits: ["selecionar-ingrediente", "remover-ingrediente"],
 };
 </script>
 <template>
@@ -33,6 +33,7 @@ export default {
         <SelectedIngredient
           :ingrediente="ingrediente"
           @selecionar-ingrediente="$emit('selecionar-ingrediente', $event)"
+          @remover-ingrediente="$emit('remover-ingrediente', $event)"
         />
       </li>
     </ul>
