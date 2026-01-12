@@ -12,6 +12,7 @@ export default {
     this.categorias = await getCategories();
   },
   components: { CategoryCard },
+  emits: ["selecionar-ingrediente"],
 };
 </script>
 
@@ -30,7 +31,10 @@ export default {
         v-for="categoria in categorias"
         :key="categoria.nome"
       >
-        <CategoryCard :categoria="categoria" />
+        <CategoryCard
+          :categoria="categoria"
+          @selecionar-ingrediente="$emit('selecionar-ingrediente', $event)"
+        />
       </li>
     </ul>
   </section>

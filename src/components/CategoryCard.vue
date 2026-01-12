@@ -14,6 +14,7 @@ export default {
     Tag,
     SelectedIngredient,
   },
+  emits: ["selecionar-ingrediente"],
 };
 </script>
 <template>
@@ -29,7 +30,10 @@ export default {
 
     <ul class="categoria__ingredientes">
       <li v-for="ingrediente in categoria.ingredientes" :key="ingrediente">
-        <SelectedIngredient :ingrediente="ingrediente" />
+        <SelectedIngredient
+          :ingrediente="ingrediente"
+          @selecionar-ingrediente="$emit('selecionar-ingrediente', $event)"
+        />
       </li>
     </ul>
   </article>

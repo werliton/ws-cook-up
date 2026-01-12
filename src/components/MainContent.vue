@@ -1,5 +1,5 @@
 <script>
-import SelectIngredients from "./SelectIngredients.vue";
+import IngredientList from "./IngredientList.vue";
 import YourList from "./YourList.vue";
 
 export default {
@@ -8,13 +8,13 @@ export default {
       ingredientes: ["Alho", "Manteiga", "Orégano"],
     };
   },
-  components: { SelectIngredients, YourList },
+  components: { IngredientList, YourList },
 };
 </script>
 <template>
   <main class="conteudo-principal">
     <YourList :ingredientes="ingredientes" />
-    <SelectIngredients />
+    <IngredientList @selecionar-ingrediente="ingredientes.push($event)" />
   </main>
 </template>
 

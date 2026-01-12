@@ -14,10 +14,22 @@ export default {
       selected: false,
     };
   },
+  methods: {
+    toggleSelected() {
+      this.selected = !this.selected;
+
+      if (this.selected) {
+        this.$emit("selecionarIngrediente", this.ingrediente);
+      } else {
+        this.$emit("removerIngrediente", this.ingrediente);
+      }
+    },
+  },
+  emits: ["selecionarIngrediente", "removerIngrediente"],
 };
 </script>
 <template>
-  <button class="btn-ingrediente" v-on:click="selected = !selected">
+  <button class="btn-ingrediente" @:click="toggleSelected">
     <Tag :texto="ingrediente" :ativa="selected" />
   </button>
 </template>
