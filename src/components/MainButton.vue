@@ -7,11 +7,14 @@ export default {
       required: true,
     },
   },
+  emits: ["alterar-page"],
 };
 </script>
 
 <template>
-  <button class="botao-principal">{{ text }}</button>
+  <button class="botao-principal" v-on:click="$emit('alterar-page')">
+    {{ text }}
+  </button>
 </template>
 
 <style scoped>

@@ -1,16 +1,19 @@
 <script lang="ts">
 import IngredientList from "./IngredientList.vue";
-import MainButton from "./MainButton.vue";
+import Receitas from "./Receitas.vue";
 
 import YourList from "./YourList.vue";
+
+type Page = "main" | "receitas";
 
 export default {
   data() {
     return {
       ingredientes: [] as string[],
+      page: "main" as Page,
     };
   },
-  components: { IngredientList, YourList, MainButton },
+  components: { IngredientList, YourList, Receitas },
   methods: {
     adicionaringrediente(ingrediente: string) {
       this.ingredientes.push(ingrediente);
@@ -22,6 +25,9 @@ export default {
         (item) => item != ingrediente
       );
     },
+    alterarPage() {
+      this.page = this.page == "receitas" ? "main" : "receitas";
+    },
   },
 };
 </script>
@@ -29,34 +35,16 @@ export default {
   <main class="conteudo-principal">
     <YourList :ingredientes="ingredientes" />
     <IngredientList
+      v-if="page == 'main'"
       @selecionar-ingrediente="adicionaringrediente"
       @remover-ingrediente="removerIngrediente"
+      @alterar-page="alterarPage"
     />
-    <div class="pre-footer">
-      <p>*Atenção: consideramos que você tem em casa sal, pimenta e água.</p>
-
-      <div class="button-container">
-        <MainButton text="Buscar receitas" />
-      </div>
-    </div>
+    <Receitas v-else-if="page == 'receitas'" @alterar-page="alterarPage" />
   </main>
 </template>
 
 <style scoped>
-.pre-footer {
-  padding: 0rem 80px;
-  width: 100%;
-  display: flex;
-  gap: 3.5rem;
-  justify-content: start;
-  flex-direction: column;
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-}
-
 .conteudo-principal {
   padding: 6.5rem 7.5rem;
   border-radius: 3.75rem 3.75rem 0rem 0rem;

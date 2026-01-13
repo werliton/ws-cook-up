@@ -1,6 +1,7 @@
 <script lang="ts">
 import { getCategories } from "@/http";
 import CategoryCard from "./CategoryCard.vue";
+import MainButton from "./MainButton.vue";
 
 export default {
   data() {
@@ -11,8 +12,8 @@ export default {
   async created() {
     this.categorias = await getCategories();
   },
-  components: { CategoryCard },
-  emits: ["selecionar-ingrediente", "remover-ingrediente"],
+  components: { CategoryCard, MainButton },
+  emits: ["selecionar-ingrediente", "remover-ingrediente", "alterar-page"],
 };
 </script>
 
@@ -38,10 +39,34 @@ export default {
         />
       </li>
     </ul>
+    <div class="pre-footer">
+      <p>*Atenção: consideramos que você tem em casa sal, pimenta e água.</p>
+
+      <div class="button-container">
+        <MainButton
+          text="Buscar receitas"
+          @alterar-page="$emit('alterar-page')"
+        />
+      </div>
+    </div>
   </section>
 </template>
 
 <style scoped>
+.pre-footer {
+  padding: 0rem 80px;
+  width: 100%;
+  display: flex;
+  gap: 3.5rem;
+  justify-content: start;
+  flex-direction: column;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
 .selecionar-ingredientes {
   display: flex;
   flex-direction: column;
