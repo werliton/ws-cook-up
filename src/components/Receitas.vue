@@ -1,6 +1,7 @@
 <script lang="ts">
 import { getReceipts } from "@/http";
 import ReceiptList from "./ReceiptList.vue";
+import type { PropType } from "vue";
 
 export default {
   data() {
@@ -14,7 +15,19 @@ export default {
     },
   },
   async created() {
-    this.receitas = await getReceipts();
+    const response = await getReceipts();
+    const receitasMatch = response.filter((receita) =>
+      this.ingredientes.every((ingrediente) =>
+        receita.ingredientes.includes(ingrediente)
+      )
+    );
+    this.receitas = receitasMatch;
+  },
+  props: {
+    ingredientes: {
+      type: Array as PropType<string[]>,
+      required: true,
+    },
   },
   components: { ReceiptList },
   emits: ["alterar-page"],
@@ -29,8 +42,8 @@ export default {
 
     <p v-else>
       Ops! Não encontramos resultados para sua busca. Tente novamente.
+      <img src="@/assets/images/sem-receitas.png" alt="" />
     </p>
-    <img src="@/assets/images/sem-receitas.png" alt="" />
   </section>
   <button class="botao" @:click="gotohome">Editar lista</button>
 </template>

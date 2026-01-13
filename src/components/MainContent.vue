@@ -41,7 +41,11 @@ export default {
         @remover-ingrediente="removerIngrediente"
         @alterar-page="alterarPage"
       />
-      <Receitas v-else-if="page == 'receitas'" @alterar-page="alterarPage" />
+      <Receitas
+        v-else-if="page == 'receitas'"
+        @alterar-page="alterarPage"
+        :ingredientes="ingredientes"
+      />
     </KeepAlive>
   </main>
 </template>
