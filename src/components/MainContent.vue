@@ -34,13 +34,15 @@ export default {
 <template>
   <main class="conteudo-principal">
     <YourList :ingredientes="ingredientes" />
-    <IngredientList
-      v-if="page == 'main'"
-      @selecionar-ingrediente="adicionaringrediente"
-      @remover-ingrediente="removerIngrediente"
-      @alterar-page="alterarPage"
-    />
-    <Receitas v-else-if="page == 'receitas'" @alterar-page="alterarPage" />
+    <KeepAlive include="IngredientList">
+      <IngredientList
+        v-if="page == 'main'"
+        @selecionar-ingrediente="adicionaringrediente"
+        @remover-ingrediente="removerIngrediente"
+        @alterar-page="alterarPage"
+      />
+      <Receitas v-else-if="page == 'receitas'" @alterar-page="alterarPage" />
+    </KeepAlive>
   </main>
 </template>
 

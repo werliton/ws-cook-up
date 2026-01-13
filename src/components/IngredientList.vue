@@ -4,6 +4,7 @@ import CategoryCard from "./CategoryCard.vue";
 import MainButton from "./MainButton.vue";
 
 export default {
+  name: "IngredientList",
   data() {
     return {
       categorias: [] as ICategory[],
